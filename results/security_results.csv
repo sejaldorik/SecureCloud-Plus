@@ -1,0 +1,9 @@
+Experiment,Expected Result,Actual Result,Status
+A. Same Plaintext Encrypted Twice,Different ciphertext produced,"Ciphertexts distinct (Len: 60 bytes, Match: False)",PASSED
+B. Ciphertext Modification,AES-GCM authentication/decryption failure,EncryptionError raised on GCM tag validation failure,PASSED
+C. Wrong ECC Private Key,AES key recovery failure,ECCError raised: wrong private key failed KEK derivation/unwrap,PASSED
+D. Unauthorized User Access,HTTP 403 before AES key recovery/decryption,HTTP 403 (Access Denied: User 'mallory_unauth' has no registered permissions for file '2dfe35fc-0593-446d-95a9-22166d0646fb'.),PASSED
+E. Revoked User Access,HTTP 403 before AES key recovery/decryption,HTTP 403 (Access Denied: User 'bob_e' access status is DENIED for file 'dfcb3e96-d0c1-474a-ac0c-ffd6a03fec9d'.),PASSED
+F. Key Rotation Version Change,AES key/file version changes after revocation (v1 -> v2),"Version incremented to v2, status: revoked",PASSED
+G. Authorized User Access After Rotation,Download/decryption succeeds for remaining authorized user,"HTTP 200, content restored successfully",PASSED
+H. Blockchain Protection,Plaintext AES key and ECC private key are NOT stored on chain,"On-chain record contains only ephemeral pub key PEM, nonce, wrapped ciphertext",PASSED

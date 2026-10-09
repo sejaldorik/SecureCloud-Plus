@@ -1,0 +1,15 @@
+{
+  "name": "secure-cloud-storage",
+  "version": "1.0.0",
+  "description": "Phase 4 - Blockchain-based key management using Hardhat and Solidity",
+  "main": "hardhat.config.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  }
+}

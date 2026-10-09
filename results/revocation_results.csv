@@ -1,0 +1,12 @@
+Step,Action / Scenario,Observed Result
+1,User B receives DOWNLOAD permission,HTTP 200 - Permission granted
+2,User B successfully downloads the file,HTTP 200 - Content length: 51 bytes matched
+3,Owner revokes User B,HTTP 200 - Revocation executed by owner 'alice_owner_seq'
+4,New AES key is generated,Fresh 256-bit AES key sampled via AESGCM.generate_key()
+5,File encryption version increases,Version incremented from 1 to 2
+6,File is re-encrypted,"Payload re-encrypted with fresh AES key & nonce, stored to file_id.enc"
+7,Blockchain records AccessRevoked,"Event AccessRevoked emitted, TX Hash: 0xf313f5f2ef6e95e15eda14ad8eff4099507aa05810a043726f76ba4fdf32f821"
+8,User B attempts download post-revocation,HTTP GET /files/{file_id}/download?user_id=bob_grantee_seq
+9,User B receives HTTP 403,HTTP 403 Forbidden - Reason: Access Denied for revoked user
+10,Owner downloads successfully,HTTP 200 - Latest v2 payload decrypted successfully
+11,Remaining authorized user (User C) downloads successfully,HTTP 200 - User C decrypted latest v2 payload
